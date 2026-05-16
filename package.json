@@ -1,0 +1,26 @@
+{
+  "name": "sellsy-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "sellsy-mcp": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "sellsy",
+    "crm"
+  ],
+  "author": "Heal Digital",
+  "license": "ISC",
+  "description": "MCP server for Sellsy CRM API v2 — exposes companies, contacts, opportunities, invoices, etc.",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
