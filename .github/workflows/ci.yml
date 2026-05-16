@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Smoke test stdio
+        env:
+          SELLSY_CLIENT_ID: smoke
+          SELLSY_CLIENT_SECRET: smoke
+        run: |
+          timeout 3 node index.js < /dev/null > /tmp/sellsy.stdout 2> /tmp/sellsy.stderr || true
+          if grep -q "Error:" /tmp/sellsy.stderr; then
+            echo "Boot error:"
+            cat /tmp/sellsy.stderr
+            exit 1
+          fi
+          echo "Boot OK"
